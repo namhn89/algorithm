@@ -11,6 +11,30 @@ using namespace std;
 const int N = 2e5 + 1;
 const int MOD = 1e9 + 7; 
 
+int add (int a, int b) {
+  return (a += b) >= MOD ? a - MOD : a;
+}
+ 
+int sub (int a, int b) {
+  return (a -= b) < 0 ? a + MOD : a;
+}
+ 
+int mul (int a, int b) {
+  return (long long) a * b % MOD;
+}
+ 
+int power(int a, long long n) {
+  int res = 1;
+  while(n) {
+    if (n & 1LL) res = mul(res, a);
+    a = mul(a, a);
+    n >>= 1LL;
+  }
+  return res;
+}
+int inv(int a) {
+  return power(a, MOD - 2);
+}
 
  
 int main() {
@@ -18,6 +42,8 @@ int main() {
 	// freopen(TASK".inp","r",stdin);
 	// freopen(TASK".out","w",stdout);
 	ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int n; 
+
      
   	return 0;
 }
