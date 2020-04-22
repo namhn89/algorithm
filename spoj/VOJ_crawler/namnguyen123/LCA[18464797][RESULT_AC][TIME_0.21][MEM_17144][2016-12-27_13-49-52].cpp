@@ -1,0 +1,88 @@
+using namespace std;
+#include<bits/stdc++.h>
+#define st first
+#define nd second
+#define FORE(i,a,b) for(int i=(a),b_=(b);i<=b_;++i)
+#define FORD(i,a,b) for(int i=(a),b_=(b);i>=b_;--i)
+#define TR(c, it) for(__typeof((c).begin()) it=(c).begin(); it!=(c).end(); it++)
+
+const int MOD = 1e9 + 7 ;
+const int MAXN = 1e5 + 5 ;
+const int MAXLOG = 31 ;
+int n ;
+int level[MAXN] ;
+int dad[MAXLOG][MAXN] ;
+vector <int> g[MAXN] ;
+int logN ;
+void DFS (int u, int parent )
+{
+    dad[0][u] = parent ;
+    TR(g[u], it)
+    {
+        if (*it == parent) continue ;
+        level[*it] = level[u] + 1 ;
+        DFS(*it, u) ;
+    }
+}
+void make_lca ()
+{
+    for(int i = 1 ; i <= logN ; ++i )
+    {
+        for(int u = 1 ; u <= n ; ++ u ) dad[i][u] = dad[i - 1][dad[i - 1][u]] ;
+    }
+}
+int LCA (int x, int y)
+{
+    if (level[x] < level[y]) swap(x, y) ;
+    int delta = level[x] - level[y] ;
+    for(int i = logN ; i >= 0 ; --i ) if ( (delta >> i) & 1 ) x = dad[i][x] ;
+    if (x == y) return x ;
+    for(int i = logN ; i >= 0 ; --i )
+    {
+        if (dad[i][x] != dad[i][y])
+        {
+            x = dad[i][x] ;
+            y = dad[i][y] ;
+        }
+    }
+    return dad[0][x] ;
+}
+int main()
+{
+#define TASK "NAME"
+    // freopen(TASK".inp","r",stdin);
+    // freopen(TASK".out","w",stdout);
+    int ntests ;
+    scanf("%d",&ntests) ;
+    for(int test = 1 ; test <= ntests ; ++ test)
+    {
+        printf("Case %d:\n", test) ;
+        scanf("%d",&n ) ;
+        for(int i = 1 ; i <= n ; ++i ) g[i].clear() ;
+        memset(dad , 0 , sizeof (dad)) ;
+        for(logN = 0 ; (1 << logN) <= n ; ++logN) ;
+        for(int i = 1 ; i <= n ; ++i )
+        {
+            int n_child ;
+            scanf("%d", &n_child) ;
+            for(int j = 1 ; j <= n_child ; ++j )
+            {
+                int node ;
+                scanf("%d",&node) ;
+                g[i].push_back(node) ;
+            }
+        }
+        DFS(1, 0) ;
+        make_lca() ;
+        int Q ;
+        scanf("%d",&Q) ;
+        while(Q--)
+        {
+            int x, y ;
+            scanf("%d %d", &x, &y) ;
+            printf("%d\n", LCA(x, y)) ;
+        }
+    }
+
+    return 0;
+}
