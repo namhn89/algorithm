@@ -1,0 +1,19 @@
+This is a DP problem. The only trouble is that Ai can be up to 10^9.
+
+Divide all integers from L1 to Rn into segments such that all integers in this segment belong to the same set of ranges [Li;Ri]. For example, if the ranges are [1;10], [3;10] and [8;15], then we'll form segments [1;2], [3;7], [8;10] and [11;15]. Clearly, we'll form at most 2n such segments.
+
+Now, for every i, instead of deciding the value of Ai, let's only decide which segment it belongs to. Since Ai must be an increasing sequence, corresponding segment IDs must be non-decreasing.
+
+For a fixed assignment of Ai to segments, how many ways are there to actually choose all Ai so that the conditions are satisfied? Well, it's the product of , where lenj is the length of the j-th segment, and cntj is the number of Ai belonging to the j-th segment.
+
+This leads to a DP solution. Let fi, k be the number of ways to assign the first i numbers to the first k segments. Transitions are done by looping over how many numbers are assigned to the next segment. The complexity is O(n^3) (if you precalculate  in advance or quickly calculate them during the process).
+
+This is a DP problem.
+
+Let fi, j be the number of increasing sequences A1, A2, ..., Ai such that Ai = j. Clearly, if j < Li or j > Ri, then fi, j = 0. Otherwise, .
+
+The problem is that this solution is too slow -- it works in O(n·max(Ri)2).
+
+To fix that, note that . Thus, if both j and j - 1 belong to [Li;Ri], then fi, j = fi, j - 1 + fi - 1, j - 1. We can calculate fi, Li first in O(Li) time, and then calculate fi, j for j from Li + 1 to Ri in O(1) time each.
+
+This way, the solution works in O(n·max(Ri)), which is just enough to get accepted.

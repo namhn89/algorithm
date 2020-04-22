@@ -1,0 +1,20 @@
+To make it clear, the term "basis" used in the above refer to "A set of linearly independent vectors which generates the whole vector space". It turns out that all the bases of a space (for example, span( A)) MUST have the same size.
+
+Consider a basis U = { u 1, u 2, u 3, ..., u n} of S with size n, and assume there exist a basis V = { v 1, v 2, v 3, ..., v k} of A with size k, where k > n. Since A is linear combination of S, we can conclude that U is also a basis of A. It follows that all the vectors in V can be written as linear combination of elements in U. Pick the first n element of V, we can write them like this:
+
+E1: c 11 * u 1 + c 12 * u 2 + ... + c 1n * u n = v 1 E2: c 21 * u 1 + c 22 * u 2 + ... + c 2n * u n = v 2
+...
+En: c n1 * u 1 + c n2 * u 2 + ... + c nn * u n = v n
+
+Left hand side of these equations are linearly independent vectors, and so does right hand side, so any linear combination of these equations must be non-zero (except all the coefficient are zeros). We can solve these equations and find a unique way to write u i as linear combination of v i, (for example, doing gaussian elimination, both side of any of the equations will always be non-zero during the process, there must be only one solution), which implies that v 1, v 2, ..., v n is a basis, and v n + 1, v n + 2, ..., v k, already known as linear combinations of u i, are actually linear combinations of v 1, v 2, ..., v n, which contradict to our assumption that all v i are linearly independent.
+
+For the second problem, it is always possible to start from any element in A to obtain a basis. Let size of basis be k, if we have a set of linearly independent vectors V with size < k, there must exist some element x in A which is not in span( V), otherwise V is a smaller basis, a contradiction. So we just add x to V and repeat the argument until size of V is k.
+This is also why all possible choices of divisions contains pr[n], but we can always construct set of linearly independent vectors contains pr[n] with size equals to the dimension, if pr[n] itself is non-zero.
+
+By the way, since subset XOR is basically all possible linear combination of that set over field F2, it is not necessary to force U contains only element from S, it can contain any element from span( S), and so does V.
+
+For more detail and theorem, you can refer to this.
+
+https://stackoverflow.com/questions/27332621/efficient-algorithm-to-find-whether-a-subset-of-an-integer-array-exists-the-xor
+
+https://ltcconline.net/greenl/courses/203/Vectors/basisDimension.htm
