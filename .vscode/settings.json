@@ -76,5 +76,6 @@
         "**/.project": true,
         "**/.settings": true,
         "**/.factorypath": true
-    }
+    },
+    "python.pythonPath": "/home/nam/miniconda3/envs/research/bin/python"
 }
