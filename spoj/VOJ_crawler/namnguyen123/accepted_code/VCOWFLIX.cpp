@@ -21,9 +21,8 @@ typedef pair<int,int> II;
 typedef pair<int,II> III;
 typedef pair<ll,ll> LL;
 const int MOD=1e9+7;
-const int MAXN=1e5+1;
-int a[5000];
-int  f[5000][50000];
+int a[5005];
+int  f[5005][5005];
 int main()
 {
     // freopen(".inp","r",stdin);
@@ -42,13 +41,13 @@ int main()
             f[i][j]=f[i-1][j];
             if(j>=a[i]&&f[i][j]<f[i-1][j-a[i]]+a[i])
                 f[i][j]=f[i-1][j-a[i]]+a[i];
-
+ 
         }
-
+ 
     }
 cout<<f[n][m]<<endl;
-
-
-
+ 
+ 
+ 
     return 0;
 }
