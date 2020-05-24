@@ -67,7 +67,7 @@ int main() {
     }
     root = sort(root);
     while(root != NULL) {
-        cout << root-> getValue() << endl; 
+        cout << root -> getValue() << endl; 
         root = root -> next; 
     }
 }
